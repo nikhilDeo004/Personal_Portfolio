@@ -1,5 +1,6 @@
 import { Marquee } from '../components/anim.jsx';
 import Landing from '../components/Landing.jsx';
+import FlyingPhoto from '../components/FlyingPhoto.jsx';
 import Hero from '../components/Hero.jsx';
 import About from '../components/About.jsx';
 import TechStack from '../components/TechStack.jsx';
@@ -20,6 +21,7 @@ export default function Home() {
       <Experience />
       <Education />
       <Contact />
+      <FlyingPhoto />
     </>
   );
 }

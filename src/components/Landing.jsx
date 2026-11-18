@@ -10,9 +10,8 @@ export default function Landing() {
         <span className="line"><span className="bracket" aria-hidden="true">&lt;</span> <SplitText text={a} by="char" onLoad delay={150} /></span>
         <span className="line"><SplitText text={b} by="char" onLoad delay={420} /> <span className="bracket" aria-hidden="true">/&gt;</span></span>
       </h1>
-      <div className="landing-photo">
-        <img src={profile.portrait} alt={`${profile.firstName} ${profile.lastName}`} />
-      </div>
+      {/* invisible slot: the single shared photo (FlyingPhoto) starts here */}
+      <div className="landing-photo photo-slot" aria-hidden="true" />
       <div className="landing-meta">
         <div className="container">
           <span className="year">©{new Date().getFullYear()}</span>

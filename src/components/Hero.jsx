@@ -18,11 +18,8 @@ export default function Hero() {
           </div>
         </Reveal>
 
-        <Reveal delay={120} className="hero-photo">
-          <img src={profile.portrait} alt={`Portrait of ${profile.firstName} ${profile.lastName}`} />
-          {profile.portraitColor && <img src={profile.portraitColor} alt="" aria-hidden="true" className="photo-color" />}
-          {profile.portraitColor && <span className="photo-hint">hover for colour</span>}
-        </Reveal>
+        {/* invisible slot: the shared photo spins in and lands here while scrolling */}
+        <div className="hero-photo photo-slot" aria-hidden="true" />
 
         <Reveal delay={220} className="hero-right">
           <p className="hero-intro">

@@ -63,7 +63,7 @@ export default function Header({ route, theme, onToggleTheme }) {
           </button>
         </nav>
 
-        <a href={`mailto:${profile.email}`} className="header-cta u-link">Say hello ↗</a>
+        <a href="#contact" className="header-cta u-link">Say hello ↗</a>
       </div>
 
       <div id="mobile-menu" className={`mobile-menu ${open ? 'is-open' : ''}`} aria-hidden={!open}>

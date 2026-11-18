@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { education, memePages, profile, projects, techStack, workExperience } from '../data/profile.js';
 import { navLinks } from './Header.jsx';
 import FooterScene from './FooterScene.jsx';
+import { gmailUrl } from './Contact.jsx';
 
 // Everything the footer search can find
 function buildIndex() {
@@ -14,7 +15,7 @@ function buildIndex() {
     ...techStack.flatMap((g) => g.items.map((s) => ({ title: s, type: 'Skill', href: '#skills', text: g.title }))),
     { title: 'Resume (PDF)', type: 'File', href: profile.resumeUrl, text: 'cv download' },
     ...memePages.map((pg) => ({ title: pg.name, type: 'Instagram', href: pg.url, text: `${pg.handle} meme page marathi` })),
-    { title: 'Email Nikhil', type: 'Contact', href: `mailto:${profile.email}`, text: profile.email },
+    { title: 'Email Nikhil', type: 'Contact', href: gmailUrl(), text: profile.email },
   ];
   return items;
 }
@@ -87,7 +88,7 @@ export default function Footer() {
           </div>
           <div className="footer-contact">
             <span className="muted">Get in touch</span>
-            <p><a className="u-link" href={`mailto:${profile.email}`}>{profile.email}</a></p>
+            <p><a className="u-link" href={gmailUrl()} target="_blank" rel="noreferrer">{profile.email}</a></p>
             <p className="muted">Open to roles, internships and collaborations.</p>
           </div>
         </div>

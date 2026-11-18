@@ -5,8 +5,9 @@ import { profile } from '../data/profile.js';
   ONE photo that travels from the opening screen into the "Hi, I'm…" section.
 
   - Two invisible "slots" mark where it starts (.landing-photo) and ends (.hero-photo).
-  - While you scroll between them the photo stays put on screen (pinned), spins a full
-    turn around its vertical axis like a card, and grows into the Hero slot.
+  - While you scroll between them the photo stays put on screen (pinned), flips over ONCE (a half turn)
+    around its vertical axis like a card, and grows into the Hero slot. The card has the
+    photo on both faces, so it never ends up mirrored.
   - Once it arrives it simply scrolls with the Hero section.
 */
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -15,6 +16,7 @@ const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 export default function FlyingPhoto() {
   const ref = useRef(null);
+  const cardRef = useRef(null);
   const geo = useRef(null);
 
   useEffect(() => {
@@ -51,10 +53,11 @@ export default function FlyingPhoto() {
       const y = lerp(g.A.y, g.B.y, p); // linear in y → stays pinned while scrolling
       const w = lerp(g.A.w, g.B.w, e);
       const h = lerp(g.A.h, g.B.h, e);
-      const turn = reduced ? 0 : 360 * e; // full card spin around the vertical axis
+      const turn = reduced ? 0 : 180 * e; // one flip: edge-on only once, halfway
       el.style.width = `${w}px`;
       el.style.height = `${h}px`;
-      el.style.transform = `translate3d(${x}px, ${y}px, 0) perspective(900px) rotateY(${turn}deg)`;
+      el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      if (cardRef.current) cardRef.current.style.transform = `rotateY(${turn}deg)`;
       el.classList.toggle('is-moving', p > 0 && p < 1);
     };
     const onScroll = () => {
@@ -78,8 +81,15 @@ export default function FlyingPhoto() {
   }, []);
 
   return (
-    <div ref={ref} className="flying-photo" aria-hidden="false">
-      <img src={profile.portrait} alt={`${profile.firstName} ${profile.lastName}`} />
+    <div ref={ref} className="flying-photo">
+      <div ref={cardRef} className="fp-card">
+        <div className="fp-face fp-front">
+          <img src={profile.portrait} alt={`${profile.firstName} ${profile.lastName}`} />
+        </div>
+        <div className="fp-face fp-back" aria-hidden="true">
+          <img src={profile.portrait} alt="" />
+        </div>
+      </div>
     </div>
   );
 }

@@ -105,10 +105,13 @@ button { font: inherit; color: inherit; }
 .photo-slot { visibility: hidden; }
 
 /* the single photo that travels from the opening screen into the Hero */
-.flying-photo { position: absolute; top: 0; left: 0; z-index: 5; border-radius: 6px; overflow: hidden; box-shadow: var(--shadow); transform-origin: 50% 50%; backface-visibility: visible; will-change: transform, width, height; animation: fp-in 1s 0.25s var(--ease) both; }
-.flying-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.flying-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0) 70%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
-.flying-photo.is-moving::after { opacity: 1; }
+.flying-photo { position: absolute; top: 0; left: 0; z-index: 5; perspective: 900px; will-change: transform, width, height; animation: fp-in 1s 0.25s var(--ease) both; }
+.fp-card { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
+.fp-face { position: absolute; inset: 0; border-radius: 6px; overflow: hidden; box-shadow: var(--shadow); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.fp-back { transform: rotateY(180deg); }
+.fp-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fp-face::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0) 70%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.flying-photo.is-moving .fp-face::after { opacity: 1; }
 @keyframes fp-in { from { opacity: 0; clip-path: inset(100% 0 0 0); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
 .hero-intro { font-size: 1.12rem; line-height: 1.65; color: var(--muted); margin: 0 0 28px; }
 .hero-intro strong { color: var(--text); font-weight: 700; }
